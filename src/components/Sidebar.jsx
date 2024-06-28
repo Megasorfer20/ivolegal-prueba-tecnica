@@ -14,19 +14,19 @@ const Sidebar = () => {
             <Link to="/">Home</Link>
           </li>
           <li className={path === "/abonos" ? "activeSection" : ""}>
-            <Link to="/abonos">Abonos</Link>
+            <Link to="/Abonos">Abonos</Link>
           </li>
           <li className={path === "/acrededores" ? "activeSection" : ""}>
-            <Link to="/acrededores">Acrededores</Link>
+            <Link to="/Acrededores">Acrededores</Link>
           </li>
           <li className={path === "/deudores" ? "activeSection" : ""}>
-            <Link to="/deudores">Deudores</Link>
+            <Link to="/Deudores">Deudores</Link>
           </li>
           <li className={path === "/facturas" ? "activeSection" : ""}>
-            <Link to="/facturas">Facturas</Link>
+            <Link to="/Facturas">Facturas</Link>
           </li>
           <li className={path === "/mercancias" ? "activeSection" : ""}>
-            <Link to="/mercancias">Mercancias</Link>
+            <Link to="/Mercancias">Mercancias</Link>
           </li>
         </ul>
       </nav>
