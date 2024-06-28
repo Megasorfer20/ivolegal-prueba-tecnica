@@ -1,11 +1,17 @@
-import crypto from "crypto";
-
-const cufeGenerator = (numFact) => {
+const cufeGenerator = async (numFact) => {
   const CUIT = "XXXXFACTURAPRUEBAXXXXX";
   const emitionDate = new Date();
 
   const cufeCreator = `${CUIT}${numFact}${emitionDate}`;
-  return crypto.createHash("sha512").update(cufeCreator).digest("hex");
+  
+  const encoder = new TextEncoder();
+  const data = encoder.encode(cufeCreator);
+  
+  const hashBuffer = await window.crypto.subtle.digest('SHA-512', data);
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+
+  return hashHex;
 };
 
 export default cufeGenerator;

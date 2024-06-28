@@ -1,85 +1,43 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useQuery, useMutation, gql } from "@apollo/client";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import Loader from "../modules/Loader.jsx";
-
-const GET_ACREDEROR_DEUDOR = gql`
-  query {
-    allDeudores {
-      id_deudor
-      Interviniente_id
-    }
-    allAcrededores {
-      id_acreedor
-      Interviniente_id
-    }
-  }
-`;
-const POST_ABONO = gql`
-  mutation createAbonos(
-    $id_acreedor: Int!
-    $fecha_abono: String!
-    $valor_abono: Int!
-    $id_deudor: Int!
-  ) {
-    createAbonos(
-      id_acreedor: $id_acreedor
-      fecha_abono: $fecha_abono
-      valor_abono: $valor_abono
-      id_deudor: $id_deudor
-    ) {
-      abonos {
-        id_abono
-        id_acreedor
-        fecha_abono
-        valor_abono
-        id_deudor
-      }
-    }
-  }
-`;
+import {
+  GET_ACREDEROR_DEUDOR,
+  POST_ABONO,
+} from "../../functions/graphQLMethods.jsx";
 
 function AddAbono() {
   const [show, setShow] = useState(false);
-  const [fetchData, setFetchData] = useState({});
 
   const { loading, error, data } = useQuery(GET_ACREDEROR_DEUDOR);
 
-  const [mutate, { loading: mutationLoading, error: mutationError }] =
-    useMutation(POST_ABONO);
+  const [mutate] = useMutation(POST_ABONO);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
   const postElement = async (e) => {
-    e.preventDefault();
-
-    const formData = new FormData(e.target);
-    const variables = {
-      id_acreedor: parseInt(formData.get("idAcreedor")),
-      fecha_abono: formData.get("fechaAbono"),
-      valor_abono: parseInt(formData.get("valorAbono")),
-      id_deudor: parseInt(formData.get("idDeudor")),
-    };
-
-    console.log("Variables de la mutación:", variables);
     try {
-      const { data } = await mutate({ variables });
+      e.preventDefault();
+
+      const formData = new FormData(e.target);
+      const variables = {
+        id_acreedor: parseInt(formData.get("idAcreedor")),
+        fecha_abono: formData.get("fechaAbono"),
+        valor_abono: parseInt(formData.get("valorAbono")),
+        id_deudor: parseInt(formData.get("idDeudor")),
+      };
+
+      const { data } = await mutate({ variables: variables });
       console.log("Abono creado:", data);
       handleClose();
     } catch (error) {
       console.error("Error creando abono:", error);
     }
   };
-
-  useEffect(() => {
-    if (data) {
-      setFetchData(data);
-      console.log(fetchData);
-    }
-  }, [data]);
 
   if (loading) return <Loader />;
   if (error) return <p>Error: {error.message}</p>;

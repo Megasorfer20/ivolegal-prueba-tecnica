@@ -16,11 +16,31 @@ const Sections = ({ path }) => {
       <hr />
       {path && (
         <div>
-          {path === "Abonos" && <AddAbono />}
-          {path === "Acrededores" && <AddAcrededor />}
-          {path === "Deudores" && <AddDeudor />}
-          {path === "Facturas" && <AddFacturas />}
-          {path === "Mercancias" && <AddMercancia />}
+          {path === "Abonos" && (
+            <div>
+              <AddAbono />
+            </div>
+          )}
+          {path === "Acrededores" && (
+            <div>
+              <AddAcrededor />
+            </div>
+          )}
+          {path === "Deudores" && (
+            <div>
+              <AddDeudor />
+            </div>
+          )}
+          {path === "Facturas" && (
+            <div>
+              <AddFacturas />
+            </div>
+          )}
+          {path === "Mercancias" && (
+            <div>
+              <AddMercancia />
+            </div>
+          )}
         </div>
       )}
     </div>

@@ -20,24 +20,17 @@ const MainNavbar = () => {
               <Offcanvas.Header closeButton></Offcanvas.Header>
               <Offcanvas.Body>
                 <Nav className="justify-content-end flex-grow-1 pe-3">
-                  <Nav.Link>
-                    <Link to="/">Home</Link>
-                  </Nav.Link>
-                  <Nav.Link>
-                    <Link to="/Abonos">Abonos</Link>
-                  </Nav.Link>
-                  <Nav.Link>
-                    <Link to="/Acrededores">Acrededores</Link>
-                  </Nav.Link>
-                  <Nav.Link>
-                    <Link to="/Deudores">Deudores</Link>
-                  </Nav.Link>
-                  <Nav.Link>
-                    <Link to="/Facturas">Facturas</Link>
-                  </Nav.Link>
-                  <Nav.Link>
-                    <Link to="/Mercancias">Mercancias</Link>
-                  </Nav.Link>
+                  <Link to="/">Home</Link>
+
+                  <Link to="/Abonos">Abonos</Link>
+
+                  <Link to="/Acrededores">Acrededores</Link>
+
+                  <Link to="/Deudores">Deudores</Link>
+
+                  <Link to="/Facturas">Facturas</Link>
+
+                  <Link to="/Mercancias">Mercancias</Link>
                 </Nav>
               </Offcanvas.Body>
             </Navbar.Offcanvas>

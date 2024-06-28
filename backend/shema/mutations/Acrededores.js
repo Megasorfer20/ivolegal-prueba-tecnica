@@ -12,9 +12,14 @@ const CREATE_ACREDEDOR = {
   type: AcrededoresType,
   args: {
     Interviniente_id: { type: GraphQLString },
+    id_acreedor: { type: GraphQLID },
   },
   async resolve(parent, args) {
-    const response = await models.acreedores.create(args);
+    const generateId = await models.acreedores.findAll();
+    const response = await models.acreedores.create({
+      ...args,
+      id_acreedor: generateId.length+1,
+    });
     return response.dataValues;
   },
 };

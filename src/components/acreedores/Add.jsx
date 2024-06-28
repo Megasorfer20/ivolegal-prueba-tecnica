@@ -1,19 +1,34 @@
-import { useState } from "react";
-import { useQuery, gql } from "@apollo/client";
+import React, { useState } from "react";
+import { useMutation, gql } from "@apollo/client";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import Form from 'react-bootstrap/Form';
+import Form from "react-bootstrap/Form";
+import { POST_ACREDEDOR } from "../../functions/graphQLMethods.jsx";
 
 function AddAcrededor() {
   const [show, setShow] = useState(false);
 
+  const [mutate] = useMutation(POST_ACREDEDOR);
+
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
+  const postElement = async (e) => {
+    try {
+      e.preventDefault();
 
+      const formData = new FormData(e.target);
+      const variables = {
+        id_acreedor: "",
+        Interviniente_id: formData.get("IntervinienteId"),
+      };
 
-  const postElement = (e) => {
-    e.preventDefault();
+      const { data } = await mutate({ variables: variables });
+      console.log("Acrededor creado:", data);
+      handleClose();
+    } catch (error) {
+      console.error("Error creando Acrededor:", error);
+    }
   };
 
   return (
@@ -29,10 +44,18 @@ function AddAcrededor() {
         keyboard={false}
       >
         <Modal.Header closeButton>
-          <Modal.Title>Modal title</Modal.Title>
+          <Modal.Title>Nuevo Acrededor</Modal.Title>
         </Modal.Header>
         <Form onSubmit={postElement}>
-          <Modal.Body></Modal.Body>
+          <Modal.Body>
+            <Form.Label htmlFor="IntervinienteId">Interviniente</Form.Label>
+            <Form.Control
+              type="text"
+              name="IntervinienteId"
+              id="IntervinienteId"
+              placeholder="Interviniente"
+            />
+          </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={handleClose}>
               Cerrar

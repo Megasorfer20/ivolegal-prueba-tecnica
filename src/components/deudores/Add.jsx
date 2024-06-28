@@ -1,17 +1,33 @@
-import { useState } from "react";
-import { useQuery, gql } from "@apollo/client";
+import React, { useState } from "react";
+import { useMutation, gql } from "@apollo/client";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import Form from 'react-bootstrap/Form';
+import Form from "react-bootstrap/Form";
+import { POST_DEUDOR } from "../../functions/graphQLMethods.jsx";
 
-function AddDeudor() {
+function AddAcrededor() {
   const [show, setShow] = useState(false);
+
+  const [mutate] = useMutation(POST_DEUDOR);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const postElement = (e) => {
-    e.preventDefault();
+  const postElement = async (e) => {
+    try {
+      e.preventDefault();
+
+      const formData = new FormData(e.target);
+      const variables = {
+        id_deudor: "",
+        Interviniente_id: formData.get("IntervinienteId"),
+      };
+      const { data } = await mutate({ variables: variables });
+      console.log("Deudor creado:", data);
+      handleClose();
+    } catch (error) {
+      console.error("Error creando Deudor:", error);
+    }
   };
 
   return (
@@ -27,10 +43,18 @@ function AddDeudor() {
         keyboard={false}
       >
         <Modal.Header closeButton>
-          <Modal.Title>Modal title</Modal.Title>
+          <Modal.Title>Nuevo Deudor</Modal.Title>
         </Modal.Header>
         <Form onSubmit={postElement}>
-          <Modal.Body></Modal.Body>
+          <Modal.Body>
+            <Form.Label htmlFor="IntervinienteId">Interviniente</Form.Label>
+            <Form.Control
+              type="text"
+              name="IntervinienteId"
+              id="IntervinienteId"
+              placeholder="Interviniente"
+            />
+          </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={handleClose}>
               Cerrar
@@ -45,4 +69,4 @@ function AddDeudor() {
   );
 }
 
-export default AddDeudor;
+export default AddAcrededor;

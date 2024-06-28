@@ -12,9 +12,14 @@ const CREATE_DEUDOR = {
   type: DeudoresType,
   args: {
     Interviniente_id: { type: GraphQLString },
+    id_deudor: { type: GraphQLID },
   },
   async resolve(parent, args) {
-    const response = await models.deudores.create(args);
+    const generateId = await models.deudores.findAll();
+    const response = await models.deudores.create({
+      ...args,
+      id_deudor: generateId.length + 1,
+    });
     return response.dataValues;
   },
 };
