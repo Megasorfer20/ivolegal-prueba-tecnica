@@ -10,43 +10,43 @@ import DeudoresTable from "./deudores/Table.jsx";
 import FacturasTable from "./facturas/Table.jsx";
 import MercanciaTable from "./mercancia/Table.jsx";
 
+import "../styles/sections.css"; 
+
 const Sections = ({ path }) => {
   return (
-    <div>
-      <h1>
-        {path === ""
-          ? "Selecciona uno de los módulos para contuinuar..."
-          : path}
+    <div className="sections-container">
+      <h1 className="section-header">
+        {path === "" ? "Selecciona uno de los módulos para continuar..." : path}
       </h1>
       <hr />
       {path && (
-        <div>
+        <div className="section-content">
           {path === "Abonos" && (
-            <div>
+            <div className="section">
               <AddAbono />
               <AbonosTable />
             </div>
           )}
           {path === "Acrededores" && (
-            <div>
+            <div className="section">
               <AddAcrededor />
               <AcrededoresTable />
             </div>
           )}
           {path === "Deudores" && (
-            <div>
+            <div className="section">
               <AddDeudor />
               <DeudoresTable />
             </div>
           )}
           {path === "Facturas" && (
-            <div>
+            <div className="section">
               <AddFacturas />
               <FacturasTable />
             </div>
           )}
           {path === "Mercancias" && (
-            <div>
+            <div className="section">
               <AddMercancia />
               <MercanciaTable />
             </div>

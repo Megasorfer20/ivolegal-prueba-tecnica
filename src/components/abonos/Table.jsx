@@ -13,7 +13,7 @@ import {
 const AbonosTable = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [paginatedItems, setPaginatedItems] = useState([]);
-  const itemsPerPage = 10;
+  const itemsPerPage = 5;
   const { loading, error, data } = useQuery(GET_ABONO);
 
   useEffect(() => {

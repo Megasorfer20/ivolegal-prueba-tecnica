@@ -1,10 +1,11 @@
 import React from "react";
+import "../styles/footer.css";
 
 const Footer = () => {
   return (
-    <footer>
-      <div>Mockup Facturation Sistem</div>
-      <small>&copy; Esteban Ruiz</small>
+    <footer className="footer-container">
+      <div className="footer-left">Mockup Facturation System</div>
+      <small className="footer-right">&copy; Esteban Ruiz</small>
     </footer>
   );
 };

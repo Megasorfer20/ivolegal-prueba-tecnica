@@ -1,0 +1,41 @@
+.sections-container {
+    margin-left: 5rem;
+    margin-right: 0; 
+    padding-left: 1rem; 
+    padding-right: 1rem;
+    padding-bottom: 3rem; 
+  }
+  
+  .section-header {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+  }
+  
+  .section-content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem; 
+  }
+  
+  .section {
+    flex: 1 1 100%;
+    background-color: #f0f0f0;
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 2rem; 
+  }
+  
+  .section-subheader {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-top: 0;
+    margin-bottom: 1rem;
+  }
+  
+  .section-content > div {
+    flex: 1 1 calc(90% - 2rem);
+  }
+  

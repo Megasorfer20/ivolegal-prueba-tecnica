@@ -5,8 +5,6 @@ import Router from "./components/Router.jsx";
 import Footer from "./components/Footer.jsx";
 import Navbar from "./components/Navbar.jsx";
 
-import "./styles/index.css";
-
 const App = () => {
   return (
     <BrowserRouter>
