@@ -1,17 +1,5 @@
 import { gql } from "@apollo/client";
 
-const GET_ACREDEROR_DEUDOR = gql`
-  query {
-    allDeudores {
-      id_deudor
-      Interviniente_id
-    }
-    allAcrededores {
-      id_acreedor
-      Interviniente_id
-    }
-  }
-`;
 const POST_ABONO = gql`
   mutation createAbono(
     $id_acreedor: Int!
@@ -89,22 +77,6 @@ const POST_FACTURA = gql`
   }
 `;
 
-const GET_FACTURAS = gql`
-  query {
-    allFacturas {
-      id_deudor
-      id_facturas
-      id_acreedor
-      fecha_emision
-      fecha_vencimiento
-      fecha_remision_factura
-      fecha_recepcion_factura
-      numero_factura
-      cufe
-    }
-  }
-`;
-
 const POST_MERCANCIA = gql`
   mutation CreateMercancia(
     $id_facturas: Int
@@ -133,10 +105,69 @@ const POST_MERCANCIA = gql`
   }
 `;
 
-export {GET_ACREDEROR_DEUDOR,
-    POST_ABONO,
-    POST_ACREDEDOR,
-    POST_DEUDOR,
-    POST_FACTURA,
-    GET_FACTURAS,
-    POST_MERCANCIA};
+const GET_FACTURAS = gql`
+  query {
+    allFacturas {
+      id_facturas
+      id_deudor
+      id_acreedor
+      cufe
+      numero_factura
+      fecha_emision
+      fecha_vencimiento
+      fecha_remision_factura
+      fecha_recepcion_factura
+    }
+  }
+`;
+
+const GET_ACREDEROR_DEUDOR = gql`
+  query {
+    allDeudores {
+      id_deudor
+      Interviniente_id
+    }
+    allAcrededores {
+      id_acreedor
+      Interviniente_id
+    }
+  }
+`;
+
+const GET_ABONO = gql`
+  query {
+    allAbonos {
+      id_abono
+      id_deudor
+      id_acreedor
+      valor_abono
+      fecha_abono
+    }
+  }
+`;
+
+const GET_MERCANCIA = gql`
+  query {
+    allMercancia {
+      id_mercancia
+      id_facturas
+      fecha_recepcion_mercancia
+      url_soporte_recepcion_mercancia
+      concepto
+      valor
+      IVA
+    }
+  }
+`;
+
+export {
+  POST_ABONO,
+  POST_ACREDEDOR,
+  POST_DEUDOR,
+  POST_FACTURA,
+  POST_MERCANCIA,
+  GET_FACTURAS,
+  GET_ACREDEROR_DEUDOR,
+  GET_ABONO,
+  GET_MERCANCIA,
+};

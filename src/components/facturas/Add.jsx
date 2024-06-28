@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { useQuery, useMutation, gql } from "@apollo/client";
+import React, { useState } from "react";
+import { useQuery, useMutation } from "@apollo/client";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
@@ -18,7 +18,6 @@ import {
 
 function AddFacturas() {
   const [show, setShow] = useState(false);
-
   const [formErrors, setFormErrors] = useState({});
 
   const { loading, error, data } = useQuery(GET_ACREDEROR_DEUDOR);
@@ -74,6 +73,9 @@ function AddFacturas() {
     }
   };
 
+  if (loading) return <Loader />;
+  if (error) return <p>Error: {error.message}</p>;
+
   return (
     <>
       <Button variant="primary" onClick={handleShow}>
@@ -99,11 +101,17 @@ function AddFacturas() {
               defaultValue=""
             >
               <option value="">Selecciona una opción</option>
-              {data.allAcrededores.map((e) => (
-                <option value={e.id_acreedor} key={`aA${e.id_acreedor}`}>
-                  {e.Interviniente_id}
+              {data && data.allAcrededores ? (
+                data.allAcrededores.map((e) => (
+                  <option value={e.id_acreedor} key={`aA${e.id_acreedor}`}>
+                    {e.Interviniente_id}
+                  </option>
+                ))
+              ) : (
+                <option value="" disabled>
+                  Cargando...
                 </option>
-              ))}
+              )}
             </Form.Select>
             {formErrors.fecha_emision && (
               <Form.Text className="text-danger">
@@ -161,11 +169,17 @@ function AddFacturas() {
               defaultValue=""
             >
               <option value="">Selecciona una opción</option>
-              {data.allDeudores.map((e) => (
-                <option value={e.id_deudor} key={`dD${e.id_deudor}`}>
-                  {e.Interviniente_id}
+              {data && data.allDeudores ? (
+                data.allDeudores.map((e) => (
+                  <option value={e.id_deudor} key={`dD${e.id_deudor}`}>
+                    {e.Interviniente_id}
+                  </option>
+                ))
+              ) : (
+                <option value="" disabled>
+                  Cargando...
                 </option>
-              ))}
+              )}
             </Form.Select>
           </Modal.Body>
           <Modal.Footer>
